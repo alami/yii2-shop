@@ -1,12 +1,9 @@
 <?php
+namespace shop\services\auth;
 
-
-namespace common\services;
-
-
-use common\entities\User;
-use common\forms\LoginForm;
-use common\repositories\UserRepository;
+use shop\entities\User;
+use shop\forms\LoginForm;
+use shop\repositories\UserRepository;
 
 class AuthService
 {

@@ -1,6 +1,6 @@
 <?php
 namespace common\bootstrap;
-use frontend\services\contact\ContactService;
+use shop\services\ContactService;
 use yii\base\BootstrapInterface;
 use yii\mail\MailerInterface;
 

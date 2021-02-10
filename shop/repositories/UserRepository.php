@@ -1,9 +1,9 @@
 <?php
 
-namespace common\repositories;
+namespace shop\repositories;
 
 
-use common\entities\User;
+use shop\entities\User;
 
 class UserRepository
 {
