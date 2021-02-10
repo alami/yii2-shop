@@ -39,6 +39,14 @@ class User extends ActiveRecord implements IdentityInterface
         $user->status = self::STATUS_ACTIVE;
         return $user;
     }
+    public function confirmSignup(): void
+    {
+        if (!$this->isWait()) {
+            throw new \DomainException('User is already active.');
+        }
+        $this->status = self::STATUS_ACTIVE;
+        $this->email_confirm_token = null;
+    }
     public function requestPasswordReset(): void
     {
         if (!empty($this->password_reset_token)  //---чтобы себя не заспамил
@@ -60,6 +68,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function isActive(): bool
     {
         return $this->status === self::STATUS_ACTIVE;
+    }
+    public function isWait(): bool
+    {
+        return $this->status === self::STATUS_INACTIVE;
     }
 
     /**

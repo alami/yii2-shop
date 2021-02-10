@@ -4,13 +4,23 @@
 namespace frontend\services\auth;
 
 
+use common\repositories\UserRepository;
 use frontend\forms\ResetPasswordForm;
 use Yii;
 use common\entities\User;
 use frontend\forms\PasswordResetRequestForm;
+use yii\mail\MailerInterface;
 
 class PasswordResetService
 {
+    private $mailer;
+    private $users;
+
+    public function __construct(UserRepository $users, MailerInterface $mailer)
+    {
+        $this->mailer = $mailer;
+        $this->users = $users;
+    }
 
     /**
      * Sends an email with a link, for resetting the password.
