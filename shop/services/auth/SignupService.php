@@ -19,12 +19,12 @@ class SignupService
     }
     public function signup(SignupForm $form): User
     {
-        if (User::find()->andWhere(['username'=>$form->username])) {
+        /*if (User::find()->andWhere(['username'=>$form->username])) {
             throw new NotFoundException('Username is already exists.');
         }
         if (User::find()->andWhere(['email'=>$form->email])) {
             throw new NotFoundException('Email is already exists.');
-        }
+        }*/
         $user = User::create(
             $form->username,
             $form->email,
