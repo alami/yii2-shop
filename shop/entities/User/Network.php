@@ -22,7 +22,10 @@ class Network extends ActiveRecord
         $item->identity = $identity;
         return $item;
     }
-
+    public function isFor($network, $identity): bool
+    {
+        return $this->network === $network && $this->identity === $identity;
+    }
     public static function tableName()
     {
         return '{{%user_networks}}';
