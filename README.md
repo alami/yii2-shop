@@ -58,7 +58,7 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
-<hr>
+<p style="color: white">
 yii\helpers\VarDumper
 VarDumper::dump($var);
 l02: 
@@ -68,3 +68,9 @@ l02:
      php yii migrate/history
      php yii migrate
 4-24 composer require yiisoft/yii2-authclient
+4-56 <div class="box">
+        <!--div class="box-body"> -  белый фон от "AdminLTE"
+225823 - Использование Pjax в Yii2 (краткий обзор);
+https://yiiframework.ru/forum/viewforum.php?f=23
+5-08 composer require kartik-v/yii2-widgets
+composer require kartik-v/yii2-field-range "*"
