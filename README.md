@@ -58,3 +58,13 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
+<hr>
+yii\helpers\VarDumper
+VarDumper::dump($var);
+l02: 
+4-07 composer require webmozart/assert
+4-10 composer require la-haute-societe/yii2-save-relations-behavior
+4-16 php yii migrate/create create_user_networks_table
+     php yii migrate/history
+     php yii migrate
+4-24 composer require yiisoft/yii2-authclient

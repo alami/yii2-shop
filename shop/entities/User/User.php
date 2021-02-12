@@ -1,9 +1,11 @@
 <?php
 namespace shop\entities\User;
 
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -47,6 +49,15 @@ class User extends ActiveRecord implements IdentityInterface
         $this->status = self::STATUS_ACTIVE;
         $this->email_confirm_token = null;
     }
+    public static function signupByNetwork($network, $identity): self
+    {
+        $user = new User();
+        $user->created_at = time();
+        $user->status = self::STATUS_ACTIVE;
+        $user->generateAuthKey();
+        $user->networks = [Network::create($network, $identity)];
+        return $user;
+    }
     public function requestPasswordReset(): void
     {
         if (!empty($this->password_reset_token)  //---чтобы себя не заспамил
@@ -73,7 +84,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->status === self::STATUS_INACTIVE;
     }
-
+    public function getNetworks(): ActiveQuery
+    {
+        return $this->hasMany(Network::class, ['user_id' => 'id']);
+    }
     /**
      * {@inheritdoc}
      */
@@ -89,9 +103,18 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             TimestampBehavior::className(),
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => ['networks'],
+            ],
         ];
     }
-
+    public function transactions()
+    {
+        return [
+            self::SCENARIO_DEFAULT => self::OP_ALL,
+        ];
+    }
     /**
      * {@inheritdoc}
      */
