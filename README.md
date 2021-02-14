@@ -97,6 +97,7 @@ create/edit объединить через
 select version(); -- 10.1.37-MariaDB
 https://stackoverflow.com/questions/42185598/1064-you-have-an-error-in-your-sql-syntax-check-the-manual-that-corresponds
 JSON is an alias for LONGTEXT
+3-47 if ($characteristic) setAttributes($characteristic->setAttributes);
 
 
 
