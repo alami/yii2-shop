@@ -64,9 +64,13 @@ VarDumper::dump($var);
 l02: 
 4-07 composer require webmozart/assert
 4-10 composer require la-haute-societe/yii2-save-relations-behavior
+https://www.yiiframework.com/doc/guide/2.0/en/db-migrations#reverting-migrations
 4-16 php yii migrate/create create_user_networks_table
-     php yii migrate/history
+     php yii migrate/history  | new  
      php yii migrate
+     yii migrate/down all|N|[10]
+    yii migrate/redo | fresh # redo the last applied migration
+   yii migrate/mark "2015-01-01 18:54:01"             
 4-24 composer require yiisoft/yii2-authclient
 4-56 <div class="box">
         <!--div class="box-body"> -  белый фон от "AdminLTE"
@@ -90,8 +94,9 @@ create/edit объединить через
             -- beforeSave($insert)
   --$this->setAttribute('meta_json', Json::encode([
 
-
-
+select version(); -- 10.1.37-MariaDB
+https://stackoverflow.com/questions/42185598/1064-you-have-an-error-in-your-sql-syntax-check-the-manual-that-corresponds
+JSON is an alias for LONGTEXT
 
 
 
