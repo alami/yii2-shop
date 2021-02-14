@@ -74,3 +74,24 @@ l02:
 https://yiiframework.ru/forum/viewforum.php?f=23
 5-08 composer require kartik-v/yii2-widgets
 composer require kartik-v/yii2-field-range "*"
+5-29 AdminLTE ['label' => 'Users', 'icon' => 'file-code-o', 'url' => ['/user'], 'active' => Yii::$app->controller->id == 'user'],
+                                                                                            $this->context
+ch03:
+1-20-32 для edit, а не create надо заполнить форму
+    $form->setAttributes($tag->getAttributes());
+create/edit объединить через
+   __construct($tag=Null,..) { if ($tag) {$this->..= $tag->..}
+1-21 Repository - код работы с БД
+     Service ($form) - аналоги Actions в Conroller !!
+                 (чтобы облегчить и переиспользовать)
+1-27 inflector - string helper: slug() camel2id() ..
+1-34  Brand -- afterFind()
+  --$meta = Json::decode($this->getAttribute('meta_json'));
+            -- beforeSave($insert)
+  --$this->setAttribute('meta_json', Json::encode([
+
+
+
+
+
+
