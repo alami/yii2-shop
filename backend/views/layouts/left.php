@@ -30,6 +30,9 @@
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
+                    ['label' => 'Shop', 'icon' => 'folder', 'items' => [
+                        ['label' => 'Brands', 'icon' => 'file-o', 'url' => ['/shop/brand/index'], 'active' => $this->context->id == 'shop/brand'],
+                    ]],
                     ['label' => 'Users', 'icon' => 'file-code-o', 'url' => ['/user'], 'active' => Yii::$app->controller->id == 'user'],
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
