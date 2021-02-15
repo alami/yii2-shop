@@ -99,5 +99,14 @@ https://stackoverflow.com/questions/42185598/1064-you-have-an-error-in-your-sql-
 JSON is an alias for LONGTEXT
 3-47 if ($characteristic) setAttributes($characteristic->setAttributes);
 
+ch-04
+Html::a('<span class="glyphicon glyphicon-arrow-up"></span>', ['move-up', 'id' => $model->id]) .
+
+public function parentCategoriesList(): array {
+  return ArrayHelper::map(Category::find()->orderBy('lft')->asArray()->all(),
+     'id',
+     function (array $category) {
+        return ($category['depth'] > 1 ? str_repeat('-- ', $category['depth'] - 1) . ' ' : '') . $category['name'];
+     }); }
 
 
