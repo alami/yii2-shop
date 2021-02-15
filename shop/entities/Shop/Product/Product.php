@@ -16,11 +16,13 @@ use yii\web\UploadedFile;
  * @property integer $created_at
  * @property string $code
  * @property string $name
+ * @property string $description
  * @property integer $category_id
  * @property integer $brand_id
  * @property integer $price_old
  * @property integer $price_new
  * @property integer $rating
+ * @property integer $main_photo_id
  *
  * @property Meta $meta
  * @property Brand $brand
@@ -37,13 +39,14 @@ class Product extends ActiveRecord
 {
     public $meta;
 
-    public static function create($brandId, $categoryId, $code, $name, Meta $meta): self
+    public static function create($brandId, $categoryId, $code, $name, $description, Meta $meta): self
     {
         $product = new static();
         $product->brand_id = $brandId;
         $product->category_id = $categoryId;
         $product->code = $code;
         $product->name = $name;
+        $product->description = $description;
         $product->meta = $meta;
         $product->created_at = time();
         return $product;
@@ -55,11 +58,12 @@ class Product extends ActiveRecord
         $this->price_old = $old;
     }
 
-    public function edit($brandId, $code, $name, Meta $meta): void
+    public function edit($brandId, $code, $name, $description, Meta $meta): void
     {
         $this->brand_id = $brandId;
         $this->code = $code;
         $this->name = $name;
+        $this->description = $description;
         $this->meta = $meta;
     }
 
@@ -402,6 +406,10 @@ class Product extends ActiveRecord
     {
         return $this->hasMany(Photo::class, ['product_id' => 'id'])->orderBy('sort');
     }
+    public function getMainPhoto(): ActiveQuery
+    {
+        return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
+    }
     public function getRelatedAssignments(): ActiveQuery
     {
         return $this->hasMany(RelatedAssignment::class, ['product_id' => 'id']);
@@ -432,5 +440,13 @@ class Product extends ActiveRecord
         return [
             self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
+    }
+    public function afterSave($insert, $changedAttributes): void
+    {
+        $related = $this->getRelatedRecords();
+        if (array_key_exists('mainPhoto', $related)) {
+            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
+        }
+        parent::afterSave($insert, $changedAttributes);
     }
 }
